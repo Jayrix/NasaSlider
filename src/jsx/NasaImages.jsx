@@ -1,5 +1,5 @@
 import React from 'react';
-
+import NasaSlide from './NasaSlide.jsx';
 
 class NasaImages extends React.Component {
 
@@ -10,10 +10,11 @@ class NasaImages extends React.Component {
 
 
     render() {
+        let slides = '';
 
         return (
             <ul>
-                <li></li>
+                {slides}
             </ul>
         )
 
