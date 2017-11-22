@@ -12,7 +12,10 @@ class Previous extends React.Component {
     render() {
 
         return (
-            <span></span>
+                <div className="control-container previous">
+                    <span className="slide-control" id="Control-previous"></span>
+                </div>
+
         )
 
     }

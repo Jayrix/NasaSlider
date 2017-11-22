@@ -17,6 +17,7 @@ class Navigation extends React.Component {
            <nav>
                <Next/>
                <Previous />
+               <ul></ul>
            </nav>
         )
 

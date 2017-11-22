@@ -1,24 +1,61 @@
 import React from 'react';
-
+import ReactDOM from 'react-dom';
+import Navigation from './Navigation.jsx';
 
 class NasaSlide extends React.Component {
 
     constructor(props) {
         super(props);
 
+        this.state = {
+            apod : null,
+        }
     }
 
+    componentWillMount() {
+        this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A');
+    }
 
     render() {
 
-        return (
-                <li>
+        if (!this.state.apod) {
+            return <h1>Nie otrzymano obiektu z API</h1>
+        } else {
+            let addressImg = this.state.apod.hdurl;
+            let styles = {backgroundImage : "url(" + addressImg + ")",
+            };
+            return (
+                <article>
+                    {/*<div className="image-container"><img src={adressImg} alt=""/></div>*/}
+                    <div className="imageDiv" style={styles}>
+                        <Navigation />
+                    </div>
+                </article>
+            )
+        }
+    }
 
-                </li>
-        )
-
+    getApod(url){
+        fetch(url, {method : 'GET'})
+            .then(result => {
+                if (result.ok){
+                    return result.json();
+                }else{
+                    throw new Exception('nie otrzymano obiektu');
+                }
+            })
+            .then(result => this.setState({apod : result}, ()=> console.log(this.state.apod) ))
+            .catch(e=> console.log(e))
     }
 
 }
 
-module.exports = NasaSlide;
+
+document.addEventListener('DOMContentLoaded', function(){
+    ReactDOM.render(
+        <NasaSlide />,
+        document.getElementById('slider')
+    );
+});
+
+

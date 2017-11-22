@@ -12,7 +12,10 @@ class Next extends React.Component {
     render() {
 
         return (
-            <span></span>
+            <div className="control-container next">
+                <span className="slide-control" id="Control-next"></span>
+            </div>
+
         )
 
     }

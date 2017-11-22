@@ -1,7 +1,7 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: ["whatwg-fetch","./src/jsx/App.jsx","./src/scss/style.scss"],
+    entry: ["whatwg-fetch","./src/jsx/NasaSlide.jsx","./src/scss/style.scss"],
     output: { filename: "./dist/js/out.js" },
     devServer: {
         inline: true,
