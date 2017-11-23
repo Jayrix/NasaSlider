@@ -27,7 +27,7 @@ class NasaSlider extends React.Component {
             return (
 
                 <ul id="SliderList">
-                    <li className="imageDiv" style={styles}></li>
+                    <li style={styles}></li>
                     <Navigation />
                 </ul>
                 // <article>

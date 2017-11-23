@@ -7,34 +7,48 @@
 ul#SliderList{
   position: relative;
 
-  .imageDiv{
+  li{
     width: 100vw;
     height: 100vh;
     background: blue no-repeat center /100% 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-
   }
+
   nav{
     width: 100%;
     position: relative;
-
-    .control-container.previous{
-      position: absolute;
-      left: 5%;
-    }
-
-    .control-container.next{
-      position: absolute;
-      right: 5%;
-    }
-
 
     .control-container{
       display: inline-block;
       border-radius: 50%;
 
+      &.previous{
+        position: absolute;
+        left: 5%;
+
+        .slide-control {
+          border-left: 7px solid rgb(37, 201, 176);
+          border-bottom: 7px solid rgb(37, 201, 176);
+          border-bottom-left-radius: 7px;
+          transform: rotate(45deg) skew(-12deg,-12deg);
+
+        }
+      }
+
+      &.next{
+        position: absolute;
+        right: 5%;
+
+        .slide-control {
+          border-right: 7px solid rgb(37, 201, 176);
+          border-bottom: 7px solid rgb(37, 201, 176);
+          border-bottom-right-radius: 7px;
+          transform: rotate(-45deg) skew(12deg,12deg);
+
+        }
+      }
 
       .slide-control {
         display: inline-block;
@@ -46,23 +60,6 @@ ul#SliderList{
           -10px 8px 15px gray, 10px 8px 15px gray;
         }
       }
-
-      #Control-previous {
-        border-left: 7px solid rgb(37, 201, 176);
-        border-bottom: 7px solid rgb(37, 201, 176);
-        border-bottom-left-radius: 7px;
-        transform: rotate(45deg) skew(-12deg,-12deg);
-
-      }
-
-      #Control-next {
-        border-right: 7px solid rgb(37, 201, 176);
-        border-bottom: 7px solid rgb(37, 201, 176);
-        border-bottom-right-radius: 7px;
-        transform: rotate(-45deg) skew(12deg,12deg);
-
-      }
-
     }
 
     ul {

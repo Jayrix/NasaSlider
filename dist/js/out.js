@@ -10134,7 +10134,7 @@ var NasaSlider = function (_React$Component) {
                 return _react2.default.createElement(
                     'ul',
                     { id: 'SliderList' },
-                    _react2.default.createElement('li', { className: 'imageDiv', style: styles }),
+                    _react2.default.createElement('li', { style: styles }),
                     _react2.default.createElement(_Navigation2.default, null)
                 )
                 // <article>
