@@ -10134,8 +10134,17 @@ var NasaSlider = function (_React$Component) {
                 return _react2.default.createElement(
                     'ul',
                     { id: 'SliderList' },
-                    _react2.default.createElement('li', { style: styles }),
-                    _react2.default.createElement(_Navigation2.default, null)
+                    _react2.default.createElement('li', { className: 'image-container', style: styles }),
+                    _react2.default.createElement(
+                        'li',
+                        { className: 'navigation-container' },
+                        _react2.default.createElement(_Navigation2.default, null)
+                    ),
+                    _react2.default.createElement(
+                        'li',
+                        { className: 'dots-container' },
+                        _react2.default.createElement('ul', null)
+                    )
                 )
                 // <article>
                 //     {/*<div className="image-container"><img src={adressImg} alt=""/></div>*/}
@@ -22682,9 +22691,8 @@ var Navigation = function (_React$Component) {
             return _react2.default.createElement(
                 'nav',
                 null,
-                _react2.default.createElement(_Next2.default, null),
                 _react2.default.createElement(_Previous2.default, null),
-                _react2.default.createElement('ul', null)
+                _react2.default.createElement(_Next2.default, null)
             );
         }
     }]);

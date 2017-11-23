@@ -25,10 +25,10 @@ class NasaSlider extends React.Component {
             let styles = {backgroundImage : "url(" + addressImg + ")",
             };
             return (
-
                 <ul id="SliderList">
-                    <li style={styles}></li>
-                    <Navigation />
+                    <li className="image-container" style={styles}></li>
+                    <li className="navigation-container"><Navigation /></li>
+                    <li className="dots-container"><ul></ul></li>
                 </ul>
                 // <article>
                 //     {/*<div className="image-container"><img src={adressImg} alt=""/></div>*/}
