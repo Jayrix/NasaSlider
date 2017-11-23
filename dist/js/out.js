@@ -10098,13 +10098,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var NasaSlide = function (_React$Component) {
-    _inherits(NasaSlide, _React$Component);
+var NasaSlider = function (_React$Component) {
+    _inherits(NasaSlider, _React$Component);
 
-    function NasaSlide(props) {
-        _classCallCheck(this, NasaSlide);
+    function NasaSlider(props) {
+        _classCallCheck(this, NasaSlider);
 
-        var _this = _possibleConstructorReturn(this, (NasaSlide.__proto__ || Object.getPrototypeOf(NasaSlide)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (NasaSlider.__proto__ || Object.getPrototypeOf(NasaSlider)).call(this, props));
 
         _this.state = {
             apod: null
@@ -10112,7 +10112,7 @@ var NasaSlide = function (_React$Component) {
         return _this;
     }
 
-    _createClass(NasaSlide, [{
+    _createClass(NasaSlider, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
             this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A');
@@ -10132,14 +10132,18 @@ var NasaSlide = function (_React$Component) {
                 var styles = { backgroundImage: "url(" + addressImg + ")"
                 };
                 return _react2.default.createElement(
-                    'article',
-                    null,
-                    _react2.default.createElement(
-                        'div',
-                        { className: 'imageDiv', style: styles },
-                        _react2.default.createElement(_Navigation2.default, null)
-                    )
-                );
+                    'ul',
+                    { id: 'SliderList' },
+                    _react2.default.createElement('li', { className: 'imageDiv', style: styles }),
+                    _react2.default.createElement(_Navigation2.default, null)
+                )
+                // <article>
+                //     {/*<div className="image-container"><img src={adressImg} alt=""/></div>*/}
+                //     <div className="imageDiv" style={styles}>
+                //         <Navigation />
+                //     </div>
+                // </article>
+                ;
             }
         }
     }, {
@@ -10163,11 +10167,11 @@ var NasaSlide = function (_React$Component) {
         }
     }]);
 
-    return NasaSlide;
+    return NasaSlider;
 }(_react2.default.Component);
 
 document.addEventListener('DOMContentLoaded', function () {
-    _reactDom2.default.render(_react2.default.createElement(NasaSlide, null), document.getElementById('slider'));
+    _reactDom2.default.render(_react2.default.createElement(NasaSlider, null), document.getElementById('slider'));
 });
 
 /***/ }),

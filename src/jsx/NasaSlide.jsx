@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Navigation from './Navigation.jsx';
 
-class NasaSlide extends React.Component {
+class NasaSlider extends React.Component {
 
     constructor(props) {
         super(props);
@@ -25,12 +25,17 @@ class NasaSlide extends React.Component {
             let styles = {backgroundImage : "url(" + addressImg + ")",
             };
             return (
-                <article>
-                    {/*<div className="image-container"><img src={adressImg} alt=""/></div>*/}
-                    <div className="imageDiv" style={styles}>
-                        <Navigation />
-                    </div>
-                </article>
+
+                <ul id="SliderList">
+                    <li className="imageDiv" style={styles}></li>
+                    <Navigation />
+                </ul>
+                // <article>
+                //     {/*<div className="image-container"><img src={adressImg} alt=""/></div>*/}
+                //     <div className="imageDiv" style={styles}>
+                //         <Navigation />
+                //     </div>
+                // </article>
             )
         }
     }
@@ -53,7 +58,7 @@ class NasaSlide extends React.Component {
 
 document.addEventListener('DOMContentLoaded', function(){
     ReactDOM.render(
-        <NasaSlide />,
+        <NasaSlider />,
         document.getElementById('slider')
     );
 });

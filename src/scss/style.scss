@@ -4,7 +4,7 @@
   padding: 0;
 }
 
-article{
+ul#SliderList{
   position: relative;
 
   .imageDiv{
@@ -15,75 +15,61 @@ article{
     justify-content: flex-start;
     align-items: center;
 
+  }
+  nav{
+    width: 100%;
+    position: relative;
 
-    nav{
-      width: 100%;
-      position: relative;
+    .control-container.previous{
+      position: absolute;
+      left: 5%;
+    }
 
-      .control-container.previous{
-        position: absolute;
-        left: 5%;
-      }
-
-      .control-container.next{
-        position: absolute;
-        right: 5%;
-      }
+    .control-container.next{
+      position: absolute;
+      right: 5%;
+    }
 
 
+    .control-container{
+      display: inline-block;
+      border-radius: 50%;
 
-      .control-container{
+
+      .slide-control {
         display: inline-block;
-        border-radius: 50%;
+        width:40px;
+        height:40px;
 
-
-
-        .slide-control {
-          display: inline-block;
-          width:40px;
-          height:40px;
-
-          &:hover{
-            box-shadow: 0px 8px 10px gray,
-            -10px 8px 15px gray, 10px 8px 15px gray;
-          }
+        &:hover{
+          box-shadow: 0px 8px 10px gray,
+          -10px 8px 15px gray, 10px 8px 15px gray;
         }
+      }
 
-        #Control-previous {
-          border-left: 7px solid rgb(37, 201, 176);
-          border-bottom: 7px solid rgb(37, 201, 176);
-          border-bottom-left-radius: 7px;
-          transform: rotate(45deg) skew(-12deg,-12deg);
-
-
-        }
-
-        #Control-next {
-          border-right: 7px solid rgb(37, 201, 176);
-          border-bottom: 7px solid rgb(37, 201, 176);
-          border-bottom-right-radius: 7px;
-          transform: rotate(-45deg) skew(12deg,12deg);
-
-
-
-        }
-
-
+      #Control-previous {
+        border-left: 7px solid rgb(37, 201, 176);
+        border-bottom: 7px solid rgb(37, 201, 176);
+        border-bottom-left-radius: 7px;
+        transform: rotate(45deg) skew(-12deg,-12deg);
 
       }
 
+      #Control-next {
+        border-right: 7px solid rgb(37, 201, 176);
+        border-bottom: 7px solid rgb(37, 201, 176);
+        border-bottom-right-radius: 7px;
+        transform: rotate(-45deg) skew(12deg,12deg);
 
-
-      ul {
-        display: none;
       }
 
     }
+
+    ul {
+      display: none;
+    }
+
   }
-
-
-
-
 
 }
 
