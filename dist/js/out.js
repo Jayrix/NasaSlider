@@ -10122,8 +10122,12 @@ var NasaSlider = function (_React$Component) {
             });
         };
 
+        _this.img = new Image();
+        _this.addressImg = '';
+
         _this.state = {
-            apod: null
+            apod: null,
+            imgLoaded: false
         };
         return _this;
     }
@@ -10131,22 +10135,39 @@ var NasaSlider = function (_React$Component) {
     _createClass(NasaSlider, [{
         key: 'componentWillMount',
         value: function componentWillMount() {
+            var _this2 = this;
+
             this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A');
+            this.img.onload = function () {
+                _this2.setState({ imgLoaded: true }, function () {
+                    return console.log('zaladowalo');
+                });
+            };
         }
     }, {
         key: 'render',
         value: function render() {
 
             if (!this.state.apod) {
+                //bedzie preloading
                 return _react2.default.createElement(
                     'h1',
                     null,
                     'Nie otrzymano obiektu z API'
                 );
+            } else if (!this.state.imgLoaded) {
+                //bedzie preloading
+                this.addressImg = this.state.apod.hdurl;
+                this.img.src = this.addressImg;
+                return _react2.default.createElement(
+                    'h1',
+                    null,
+                    'Obrazek sie laduje'
+                );
             } else {
-                var addressImg = this.state.apod.hdurl;
-                var styles = { backgroundImage: "url(" + addressImg + ")"
+                var styles = { backgroundImage: "url(" + this.img.src + ")"
                 };
+                //this.setState({imgLoaded: false}, () => console.log('state na false'));
                 return _react2.default.createElement(
                     'ul',
                     { id: 'SliderList' },
