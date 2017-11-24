@@ -19,6 +19,10 @@ ul#SliderList {
       align-items: center; }
       ul#SliderList li.navigation-container nav .control-container {
         display: inline-block; }
+        ul#SliderList li.navigation-container nav .control-container .slide-control {
+          display: inline-block;
+          width: 40px;
+          height: 40px; }
         ul#SliderList li.navigation-container nav .control-container.previous {
           margin-left: 5%; }
           ul#SliderList li.navigation-container nav .control-container.previous .slide-control {
@@ -26,6 +30,8 @@ ul#SliderList {
             border-bottom: 7px solid #25c9b0;
             border-bottom-left-radius: 7px;
             transform: rotate(45deg) skew(-12deg, -12deg); }
+            ul#SliderList li.navigation-container nav .control-container.previous .slide-control:hover {
+              box-shadow: -8px 9px 10px 0px yellow; }
         ul#SliderList li.navigation-container nav .control-container.next {
           margin-right: 5%; }
           ul#SliderList li.navigation-container nav .control-container.next .slide-control {
@@ -33,11 +39,7 @@ ul#SliderList {
             border-bottom: 7px solid #25c9b0;
             border-bottom-right-radius: 7px;
             transform: rotate(-45deg) skew(12deg, 12deg); }
-        ul#SliderList li.navigation-container nav .control-container .slide-control {
-          display: inline-block;
-          width: 40px;
-          height: 40px; }
-          ul#SliderList li.navigation-container nav .control-container .slide-control:hover {
-            box-shadow: 0px 8px 10px gray, -10px 8px 15px gray, 10px 8px 15px gray; }
+            ul#SliderList li.navigation-container nav .control-container.next .slide-control:hover {
+              box-shadow: 8px 9px 10px yellow; }
   ul#SliderList li.dots-container {
     display: none; }

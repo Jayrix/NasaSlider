@@ -14,6 +14,8 @@ class NasaSlider extends React.Component {
 
     componentWillMount() {
         this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A');
+
+
     }
 
     render() {
@@ -27,8 +29,12 @@ class NasaSlider extends React.Component {
             return (
                 <ul id="SliderList">
                     <li className="image-container" style={styles}></li>
-                    <li className="navigation-container"><Navigation /></li>
-                    <li className="dots-container"><ul></ul></li>
+                    <li className="navigation-container">
+                        <Navigation getApodFn={this.getApod} />
+                    </li>
+                    <li className="dots-container">
+                        <ul></ul>
+                    </li>
                 </ul>
                 // <article>
                 //     {/*<div className="image-container"><img src={adressImg} alt=""/></div>*/}
@@ -40,7 +46,7 @@ class NasaSlider extends React.Component {
         }
     }
 
-    getApod(url){
+    getApod = (url) =>{
         fetch(url, {method : 'GET'})
             .then(result => {
                 if (result.ok){

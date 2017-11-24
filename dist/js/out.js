@@ -10106,6 +10106,22 @@ var NasaSlider = function (_React$Component) {
 
         var _this = _possibleConstructorReturn(this, (NasaSlider.__proto__ || Object.getPrototypeOf(NasaSlider)).call(this, props));
 
+        _this.getApod = function (url) {
+            fetch(url, { method: 'GET' }).then(function (result) {
+                if (result.ok) {
+                    return result.json();
+                } else {
+                    throw new Exception('nie otrzymano obiektu');
+                }
+            }).then(function (result) {
+                return _this.setState({ apod: result }, function () {
+                    return console.log(_this.state.apod);
+                });
+            }).catch(function (e) {
+                return console.log(e);
+            });
+        };
+
         _this.state = {
             apod: null
         };
@@ -10138,7 +10154,7 @@ var NasaSlider = function (_React$Component) {
                     _react2.default.createElement(
                         'li',
                         { className: 'navigation-container' },
-                        _react2.default.createElement(_Navigation2.default, null)
+                        _react2.default.createElement(_Navigation2.default, { getApodFn: this.getApod })
                     ),
                     _react2.default.createElement(
                         'li',
@@ -10154,25 +10170,6 @@ var NasaSlider = function (_React$Component) {
                 // </article>
                 ;
             }
-        }
-    }, {
-        key: 'getApod',
-        value: function getApod(url) {
-            var _this2 = this;
-
-            fetch(url, { method: 'GET' }).then(function (result) {
-                if (result.ok) {
-                    return result.json();
-                } else {
-                    throw new Exception('nie otrzymano obiektu');
-                }
-            }).then(function (result) {
-                return _this2.setState({ apod: result }, function () {
-                    return console.log(_this2.state.apod);
-                });
-            }).catch(function (e) {
-                return console.log(e);
-            });
         }
     }]);
 
@@ -22681,18 +22678,49 @@ var Navigation = function (_React$Component) {
     function Navigation(props) {
         _classCallCheck(this, Navigation);
 
-        return _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this, props));
+
+        _this.getNextApod = function (iterator) {
+            var newDate = new Date(_this.state.date.getTime());
+            newDate.setDate(newDate.getDate() + iterator);
+            var dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+            // console.log(newDate);
+            // console.log(this.state.date);
+            _this.setState({
+                date: newDate
+            }, _this.props.getApodFn('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+        };
+
+        _this.state = {
+            date: new Date()
+        };
+
+        return _this;
     }
 
     _createClass(Navigation, [{
         key: 'render',
+
+
+        // getPreviousApod = () =>{
+        //     let newDate = new Date(this.state.date.getTime());
+        //     newDate.setDate(newDate.getDate()+1);
+        //     let dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+        //     // console.log(newDate);
+        //     // console.log(this.state.date);
+        //     this.setState({
+        //         date: newDate,
+        //     }, this.props.getApodFn('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+        // }
+
+
         value: function render() {
 
             return _react2.default.createElement(
                 'nav',
                 null,
-                _react2.default.createElement(_Previous2.default, null),
-                _react2.default.createElement(_Next2.default, null)
+                _react2.default.createElement(_Previous2.default, { getNextApodFn: this.getNextApod }),
+                _react2.default.createElement(_Next2.default, { getNextApodFn: this.getNextApod })
             );
         }
     }]);
@@ -22729,7 +22757,13 @@ var Next = function (_React$Component) {
     function Next(props) {
         _classCallCheck(this, Next);
 
-        return _possibleConstructorReturn(this, (Next.__proto__ || Object.getPrototypeOf(Next)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Next.__proto__ || Object.getPrototypeOf(Next)).call(this, props));
+
+        _this.loadNextApod = function (e) {
+            _this.props.getNextApodFn(-1);
+        };
+
+        return _this;
     }
 
     _createClass(Next, [{
@@ -22738,7 +22772,7 @@ var Next = function (_React$Component) {
 
             return _react2.default.createElement(
                 "div",
-                { className: "control-container next" },
+                { className: "control-container next", onClick: this.loadNextApod },
                 _react2.default.createElement("span", { className: "slide-control", id: "Control-next" })
             );
         }
@@ -22776,7 +22810,13 @@ var Previous = function (_React$Component) {
     function Previous(props) {
         _classCallCheck(this, Previous);
 
-        return _possibleConstructorReturn(this, (Previous.__proto__ || Object.getPrototypeOf(Previous)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Previous.__proto__ || Object.getPrototypeOf(Previous)).call(this, props));
+
+        _this.loadPreviousApod = function (e) {
+            _this.props.getNextApodFn(1);
+        };
+
+        return _this;
     }
 
     _createClass(Previous, [{
@@ -22785,7 +22825,7 @@ var Previous = function (_React$Component) {
 
             return _react2.default.createElement(
                 "div",
-                { className: "control-container previous" },
+                { className: "control-container previous", onClick: this.loadPreviousApod },
                 _react2.default.createElement("span", { className: "slide-control", id: "Control-previous" })
             );
         }
