@@ -30,6 +30,7 @@ class Navigation extends React.Component {
         let newDate = new Date(this.state.date.getTime());
         newDate.setDate(newDate.getDate() + iterator);
         let dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+        console.log(dateString);
         // console.log(newDate);
         // console.log(this.state.date);
         this.setState({

@@ -10107,6 +10107,11 @@ var NasaSlider = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (NasaSlider.__proto__ || Object.getPrototypeOf(NasaSlider)).call(this, props));
 
         _this.getApod = function (url) {
+
+            // this.setState({imgLoaded : false}, ()=> {
+            //
+            // });
+
             fetch(url, { method: 'GET' }).then(function (result) {
                 if (result.ok) {
                     return result.json();
@@ -10115,7 +10120,9 @@ var NasaSlider = function (_React$Component) {
                 }
             }).then(function (result) {
                 return _this.setState({ apod: result }, function () {
-                    return console.log(_this.state.apod);
+                    console.log(_this.state.apod);
+                    _this.addressImg = _this.state.apod.url;
+                    _this.img.src = _this.addressImg;
                 });
             }).catch(function (e) {
                 return console.log(e);
@@ -10129,12 +10136,14 @@ var NasaSlider = function (_React$Component) {
             apod: null,
             imgLoaded: false
         };
+
+        console.log('konstruktor');
         return _this;
     }
 
     _createClass(NasaSlider, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
             var _this2 = this;
 
             this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A');
@@ -10143,6 +10152,7 @@ var NasaSlider = function (_React$Component) {
                     return console.log('zaladowalo');
                 });
             };
+            console.log('willmount');
         }
     }, {
         key: 'render',
@@ -10150,6 +10160,7 @@ var NasaSlider = function (_React$Component) {
 
             if (!this.state.apod) {
                 //bedzie preloading
+                console.log('pierwszy if');
                 return _react2.default.createElement(
                     'h1',
                     null,
@@ -10157,8 +10168,9 @@ var NasaSlider = function (_React$Component) {
                 );
             } else if (!this.state.imgLoaded) {
                 //bedzie preloading
-                this.addressImg = this.state.apod.hdurl;
-                this.img.src = this.addressImg;
+                // this.addressImg = this.state.apod.url;
+                // this.img.src = this.addressImg;
+                console.log('drugi if');
                 return _react2.default.createElement(
                     'h1',
                     null,
@@ -10192,6 +10204,13 @@ var NasaSlider = function (_React$Component) {
                 ;
             }
         }
+
+        // shouldComponentUpdate(nextProps, nextState){
+        //    console.log(this.state.imgLoaded === false);
+        //     return (this.state.imgLoaded === false)
+        // }
+
+
     }]);
 
     return NasaSlider;
@@ -22705,6 +22724,7 @@ var Navigation = function (_React$Component) {
             var newDate = new Date(_this.state.date.getTime());
             newDate.setDate(newDate.getDate() + iterator);
             var dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+            console.log(dateString);
             // console.log(newDate);
             // console.log(this.state.date);
             _this.setState({
