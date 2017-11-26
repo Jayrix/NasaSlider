@@ -24,7 +24,7 @@ ul#SliderList {
           width: 40px;
           height: 40px; }
         ul#SliderList li.navigation-container nav .control-container.previous {
-          margin-left: 5%; }
+          margin-left: 10%; }
           ul#SliderList li.navigation-container nav .control-container.previous .slide-control {
             border-left: 7px solid #25c9b0;
             border-bottom: 7px solid #25c9b0;
@@ -33,7 +33,7 @@ ul#SliderList {
             ul#SliderList li.navigation-container nav .control-container.previous .slide-control:hover {
               box-shadow: -8px 9px 10px 0px yellow; }
         ul#SliderList li.navigation-container nav .control-container.next {
-          margin-right: 5%; }
+          margin-right: 10%; }
           ul#SliderList li.navigation-container nav .control-container.next .slide-control {
             border-right: 7px solid #25c9b0;
             border-bottom: 7px solid #25c9b0;

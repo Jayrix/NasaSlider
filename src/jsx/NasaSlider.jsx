@@ -88,7 +88,7 @@ class NasaSlider extends React.Component {
                 this.addressImg = this.state.apod.url;
                 this.img.src = this.addressImg;
             } ))
-            .catch(e=> console.log(e))
+            .catch(e=> console.log("exception: " + e))
     }
 
 }

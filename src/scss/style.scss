@@ -36,7 +36,7 @@ ul#SliderList {
         }
 
         &.previous{
-          margin-left: 5%;
+          margin-left: 10%;
 
           .slide-control {
             border-left: 7px solid rgb(37, 201, 176);
@@ -51,7 +51,7 @@ ul#SliderList {
         }
 
         &.next{
-          margin-right: 5%;
+          margin-right: 10%;
 
           .slide-control {
             border-right: 7px solid rgb(37, 201, 176);
