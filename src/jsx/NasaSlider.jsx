@@ -32,11 +32,14 @@ class NasaSlider extends React.Component {
             //bedzie preloading
             console.log('pierwszy if');
             return <h1>Nie otrzymano obiektu z API</h1>
+        }else if(this.state.apod.media_type !== "image") {
+            console.log('drugi if');
+            return <h1>not an image</h1>
         }else if(!this.state.imgLoaded) {
             //bedzie preloading
             // this.addressImg = this.state.apod.url;
             // this.img.src = this.addressImg;
-            console.log('drugi if');
+            console.log('trzeci if');
             return <h1>Obrazek sie laduje</h1>
         } else {
             let styles = {backgroundImage : "url(" + this.img.src + ")",
