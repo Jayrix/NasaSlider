@@ -10129,12 +10129,25 @@ var NasaSlider = function (_React$Component) {
             });
         };
 
+        _this.getNextApod = function (iterator) {
+            var newDate = new Date(_this.state.date.getTime());
+            newDate.setDate(newDate.getDate() + iterator);
+            var dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+            console.log(dateString);
+            // console.log(newDate);
+            // console.log(this.state.date);
+            _this.setState({
+                date: newDate
+            }, _this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+        };
+
         _this.img = new Image();
         _this.addressImg = '';
 
         _this.state = {
             apod: null,
-            imgLoaded: false
+            imgLoaded: false,
+            date: new Date()
         };
 
         console.log('konstruktor');
@@ -10142,8 +10155,8 @@ var NasaSlider = function (_React$Component) {
     }
 
     _createClass(NasaSlider, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
             var _this2 = this;
 
             this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A');
@@ -10168,6 +10181,7 @@ var NasaSlider = function (_React$Component) {
                 );
             } else if (this.state.apod.media_type !== "image") {
                 console.log('drugi if');
+                //this.getNextApod(-1);
                 return _react2.default.createElement(
                     'h1',
                     null,
@@ -10194,7 +10208,7 @@ var NasaSlider = function (_React$Component) {
                     _react2.default.createElement(
                         'li',
                         { className: 'navigation-container' },
-                        _react2.default.createElement(_Navigation2.default, { getApodFn: this.getApod })
+                        _react2.default.createElement(_Navigation2.default, { getApodFn: this.getNextApod })
                     ),
                     _react2.default.createElement(
                         'li',
@@ -10210,6 +10224,15 @@ var NasaSlider = function (_React$Component) {
                 // </article>
                 ;
             }
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log('did mount');
+            // if(this.state.apod.media_type !== "image"){
+            //     this.getNextApod(-1);
+            // }
+            //console.log(this.state.apod.media_type);
         }
 
         // shouldComponentUpdate(nextProps, nextState){
@@ -22725,30 +22748,36 @@ var Navigation = function (_React$Component) {
     function Navigation(props) {
         _classCallCheck(this, Navigation);
 
-        var _this = _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this, props));
+        return _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this, props));
 
-        _this.getNextApod = function (iterator) {
-            var newDate = new Date(_this.state.date.getTime());
-            newDate.setDate(newDate.getDate() + iterator);
-            var dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
-            console.log(dateString);
-            // console.log(newDate);
-            // console.log(this.state.date);
-            _this.setState({
-                date: newDate
-            }, _this.props.getApodFn('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
-        };
-
-        _this.state = {
-            date: new Date()
-        };
-
-        return _this;
+        // this.state = {
+        //     date : new Date(),
+        // }
     }
 
     _createClass(Navigation, [{
         key: 'render',
+        value: function render() {
 
+            return _react2.default.createElement(
+                'nav',
+                null,
+                _react2.default.createElement(_Previous2.default, { getNextApodFn: this.props.getApodFn }),
+                _react2.default.createElement(_Next2.default, { getNextApodFn: this.props.getApodFn })
+            );
+        }
+
+        // static getNextApod = (iterator) =>{
+        //     let newDate = new Date(this.state.date.getTime());
+        //     newDate.setDate(newDate.getDate() + iterator);
+        //     let dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+        //     console.log(dateString);
+        //     // console.log(newDate);
+        //     // console.log(this.state.date);
+        //     this.setState({
+        //         date: newDate,
+        //     }, this.props.getApodFn('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+        // }
 
         // getPreviousApod = () =>{
         //     let newDate = new Date(this.state.date.getTime());
@@ -22762,15 +22791,6 @@ var Navigation = function (_React$Component) {
         // }
 
 
-        value: function render() {
-
-            return _react2.default.createElement(
-                'nav',
-                null,
-                _react2.default.createElement(_Previous2.default, { getNextApodFn: this.getNextApod }),
-                _react2.default.createElement(_Next2.default, { getNextApodFn: this.getNextApod })
-            );
-        }
     }]);
 
     return Navigation;

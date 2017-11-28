@@ -13,12 +13,13 @@ class NasaSlider extends React.Component {
         this.state = {
             apod : null,
             imgLoaded: false,
+            date : new Date(),
         }
 
         console.log('konstruktor');
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A');
         this.img.onload = () => {
             this.setState({imgLoaded: true}, () => console.log('zaladowalo'));
@@ -34,6 +35,7 @@ class NasaSlider extends React.Component {
             return <h1>Nie otrzymano obiektu z API</h1>
         }else if(this.state.apod.media_type !== "image") {
             console.log('drugi if');
+            //this.getNextApod(-1);
             return <h1>not an image</h1>
         }else if(!this.state.imgLoaded) {
             //bedzie preloading
@@ -49,7 +51,7 @@ class NasaSlider extends React.Component {
                 <ul id="SliderList">
                     <li className="image-container" style={styles}></li>
                     <li className="navigation-container">
-                        <Navigation getApodFn={this.getApod} />
+                        <Navigation getApodFn={this.getNextApod} />
                     </li>
                     <li className="dots-container">
                         <ul></ul>
@@ -63,6 +65,14 @@ class NasaSlider extends React.Component {
                 // </article>
             )
         }
+    }
+
+    componentDidMount(){
+        console.log('did mount');
+        // if(this.state.apod.media_type !== "image"){
+        //     this.getNextApod(-1);
+        // }
+        //console.log(this.state.apod.media_type);
     }
 
      // shouldComponentUpdate(nextProps, nextState){
@@ -92,6 +102,18 @@ class NasaSlider extends React.Component {
                 this.img.src = this.addressImg;
             } ))
             .catch(e=> console.log("exception: " + e))
+    }
+
+     getNextApod = (iterator) =>{
+        let newDate = new Date(this.state.date.getTime());
+        newDate.setDate(newDate.getDate() + iterator);
+        let dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+        console.log(dateString);
+        // console.log(newDate);
+        // console.log(this.state.date);
+        this.setState({
+            date: newDate,
+        }, this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
     }
 
 }
