@@ -10119,12 +10119,23 @@ var NasaSlider = function (_React$Component) {
                     throw new Exception('nie otrzymano obiektu');
                 }
             }).then(function (result) {
-                return _this.setState({ apod: result }, function () {
-                    console.log(_this.state.apod);
-                    _this.addressImg = _this.state.apod.url;
-                    _this.img.src = _this.addressImg;
-                });
-            }).catch(function (e) {
+                if (result.media_type !== "image") {
+                    //get earlier Apod
+                    _this.getNextApod(-1);
+                } else {
+                    _this.setState({ apod: result }, function () {
+                        console.log(_this.state.apod);
+                        _this.addressImg = _this.state.apod.hdurl;
+                        _this.img.src = _this.addressImg;
+                    });
+                }
+            })
+            // .then(result => this.setState({apod : result}, ()=> {
+            //     console.log(this.state.apod);
+            //     this.addressImg = this.state.apod.hdurl;
+            //     this.img.src = this.addressImg;
+            // } ))
+            .catch(function (e) {
                 return console.log("exception: " + e);
             });
         };

@@ -96,12 +96,25 @@ class NasaSlider extends React.Component {
                     throw new Exception('nie otrzymano obiektu');
                 }
             })
-            .then(result => this.setState({apod : result}, ()=> {
-                console.log(this.state.apod);
-                this.addressImg = this.state.apod.url;
-                this.img.src = this.addressImg;
-            } ))
+            .then(result => {
+                if (result.media_type !== "image"){
+                    //get earlier Apod
+                    this.getNextApod(-1);
+                } else {
+                    this.setState({apod : result}, ()=> {
+                        console.log(this.state.apod);
+                        this.addressImg = this.state.apod.hdurl;
+                        this.img.src = this.addressImg;
+                    } )
+                }
+            })
+            // .then(result => this.setState({apod : result}, ()=> {
+            //     console.log(this.state.apod);
+            //     this.addressImg = this.state.apod.hdurl;
+            //     this.img.src = this.addressImg;
+            // } ))
             .catch(e=> console.log("exception: " + e))
+
     }
 
      getNextApod = (iterator) =>{
