@@ -10210,15 +10210,19 @@ var NasaSlider = function (_React$Component) {
                 console.log('trzeci if');
                 return _react2.default.createElement(
                     'div',
-                    { id: 'circular3dG' },
-                    _react2.default.createElement('div', { id: 'circular3d_1G', className: 'circular3dG' }),
-                    _react2.default.createElement('div', { id: 'circular3d_2G', className: 'circular3dG' }),
-                    _react2.default.createElement('div', { id: 'circular3d_3G', className: 'circular3dG' }),
-                    _react2.default.createElement('div', { id: 'circular3d_4G', className: 'circular3dG' }),
-                    _react2.default.createElement('div', { id: 'circular3d_5G', className: 'circular3dG' }),
-                    _react2.default.createElement('div', { id: 'circular3d_6G', className: 'circular3dG' }),
-                    _react2.default.createElement('div', { id: 'circular3d_7G', className: 'circular3dG' }),
-                    _react2.default.createElement('div', { id: 'circular3d_8G', className: 'circular3dG' })
+                    { id: 'preloader-container' },
+                    _react2.default.createElement(
+                        'div',
+                        { id: 'circular3dG' },
+                        _react2.default.createElement('div', { id: 'circular3d_1G', className: 'circular3dG' }),
+                        _react2.default.createElement('div', { id: 'circular3d_2G', className: 'circular3dG' }),
+                        _react2.default.createElement('div', { id: 'circular3d_3G', className: 'circular3dG' }),
+                        _react2.default.createElement('div', { id: 'circular3d_4G', className: 'circular3dG' }),
+                        _react2.default.createElement('div', { id: 'circular3d_5G', className: 'circular3dG' }),
+                        _react2.default.createElement('div', { id: 'circular3d_6G', className: 'circular3dG' }),
+                        _react2.default.createElement('div', { id: 'circular3d_7G', className: 'circular3dG' }),
+                        _react2.default.createElement('div', { id: 'circular3d_8G', className: 'circular3dG' })
+                    )
                 );
             } else {
                 console.log('czwarty if');

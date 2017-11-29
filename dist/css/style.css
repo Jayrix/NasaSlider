@@ -1,48 +1,6 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0; }
-
-ul#SliderList {
-  position: relative; }
-  ul#SliderList li.image-container {
-    width: 100vw;
-    height: 100vh;
-    background: blue no-repeat center /100% 100%; }
-  ul#SliderList li.navigation-container {
-    width: 100%;
-    position: absolute;
-    top: 50%; }
-    ul#SliderList li.navigation-container nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center; }
-      ul#SliderList li.navigation-container nav .control-container {
-        display: inline-block; }
-        ul#SliderList li.navigation-container nav .control-container .slide-control {
-          display: inline-block;
-          width: 40px;
-          height: 40px; }
-        ul#SliderList li.navigation-container nav .control-container.previous {
-          margin-left: 10%; }
-          ul#SliderList li.navigation-container nav .control-container.previous .slide-control {
-            border-left: 7px solid #25c9b0;
-            border-bottom: 7px solid #25c9b0;
-            border-bottom-left-radius: 7px;
-            transform: rotate(45deg) skew(-12deg, -12deg); }
-            ul#SliderList li.navigation-container nav .control-container.previous .slide-control:hover {
-              box-shadow: -8px 9px 10px 0px yellow; }
-        ul#SliderList li.navigation-container nav .control-container.next {
-          margin-right: 10%; }
-          ul#SliderList li.navigation-container nav .control-container.next .slide-control {
-            border-right: 7px solid #25c9b0;
-            border-bottom: 7px solid #25c9b0;
-            border-bottom-right-radius: 7px;
-            transform: rotate(-45deg) skew(12deg, 12deg); }
-            ul#SliderList li.navigation-container nav .control-container.next .slide-control:hover {
-              box-shadow: 8px 9px 10px yellow; }
-  ul#SliderList li.dots-container {
-    display: none; }
+#preloader-container {
+  position: relative;
+  top: 45vh; }
 
 #circular3dG {
   position: relative;
@@ -52,7 +10,7 @@ ul#SliderList {
 
 .circular3dG {
   position: absolute;
-  background-color: black;
+  background-color: #05A2E8;
   width: 17px;
   height: 17px;
   border-radius: 18px;
@@ -182,3 +140,49 @@ ul#SliderList {
     -moz-transform: scale(1); }
   100% {
     -moz-transform: scale(0.3); } }
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+ul#SliderList {
+  position: relative; }
+  ul#SliderList li.image-container {
+    width: 100vw;
+    height: 100vh;
+    background: blue no-repeat center /100% 100%; }
+  ul#SliderList li.navigation-container {
+    width: 100%;
+    position: absolute;
+    top: 50%; }
+    ul#SliderList li.navigation-container nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center; }
+      ul#SliderList li.navigation-container nav .control-container {
+        display: inline-block; }
+        ul#SliderList li.navigation-container nav .control-container .slide-control {
+          display: inline-block;
+          width: 40px;
+          height: 40px; }
+        ul#SliderList li.navigation-container nav .control-container.previous {
+          margin-left: 10%; }
+          ul#SliderList li.navigation-container nav .control-container.previous .slide-control {
+            border-left: 7px solid #25c9b0;
+            border-bottom: 7px solid #25c9b0;
+            border-bottom-left-radius: 7px;
+            transform: rotate(45deg) skew(-12deg, -12deg); }
+            ul#SliderList li.navigation-container nav .control-container.previous .slide-control:hover {
+              box-shadow: -8px 9px 10px 0px yellow; }
+        ul#SliderList li.navigation-container nav .control-container.next {
+          margin-right: 10%; }
+          ul#SliderList li.navigation-container nav .control-container.next .slide-control {
+            border-right: 7px solid #25c9b0;
+            border-bottom: 7px solid #25c9b0;
+            border-bottom-right-radius: 7px;
+            transform: rotate(-45deg) skew(12deg, 12deg); }
+            ul#SliderList li.navigation-container nav .control-container.next .slide-control:hover {
+              box-shadow: 8px 9px 10px yellow; }
+  ul#SliderList li.dots-container {
+    display: none; }
