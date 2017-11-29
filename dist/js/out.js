@@ -10111,6 +10111,7 @@ var NasaSlider = function (_React$Component) {
             // this.setState({imgLoaded : false}, ()=> {
             //
             // });
+            console.log(_this.state.imgLoaded);
 
             fetch(url, { method: 'GET' }).then(function (result) {
                 if (result.ok) {
@@ -10123,7 +10124,7 @@ var NasaSlider = function (_React$Component) {
                     //get earlier Apod
                     _this.getNextApod(-1);
                 } else {
-                    _this.setState({ apod: result }, function () {
+                    _this.setState({ apod: result, imgLoaded: false }, function () {
                         console.log(_this.state.apod);
                         _this.addressImg = _this.state.apod.hdurl;
                         _this.img.src = _this.addressImg;
@@ -10138,9 +10139,13 @@ var NasaSlider = function (_React$Component) {
             .catch(function (e) {
                 return console.log("exception: " + e);
             });
+
+            console.log(_this.state.imgLoaded);
         };
 
         _this.getNextApod = function (iterator) {
+            console.log("next " + _this.state.imgLoaded);
+
             var newDate = new Date(_this.state.date.getTime());
             newDate.setDate(newDate.getDate() + iterator);
             var dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
@@ -10170,13 +10175,13 @@ var NasaSlider = function (_React$Component) {
         value: function componentWillMount() {
             var _this2 = this;
 
+            console.log('willmount');
             this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A');
             this.img.onload = function () {
                 _this2.setState({ imgLoaded: true }, function () {
                     return console.log('zaladowalo');
                 });
             };
-            console.log('willmount');
         }
     }, {
         key: 'render',
@@ -10209,6 +10214,8 @@ var NasaSlider = function (_React$Component) {
                     'Obrazek sie laduje'
                 );
             } else {
+                console.log('czwarty if');
+
                 var styles = { backgroundImage: "url(" + this.img.src + ")"
                 };
                 //this.setState({imgLoaded: false}, () => console.log('state na false'));

@@ -20,11 +20,12 @@ class NasaSlider extends React.Component {
     }
 
     componentWillMount() {
+        console.log('willmount');
         this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A');
         this.img.onload = () => {
             this.setState({imgLoaded: true}, () => console.log('zaladowalo'));
         };
-        console.log('willmount');
+
     }
 
     render() {
@@ -44,6 +45,8 @@ class NasaSlider extends React.Component {
             console.log('trzeci if');
             return <h1>Obrazek sie laduje</h1>
         } else {
+            console.log('czwarty if');
+
             let styles = {backgroundImage : "url(" + this.img.src + ")",
             };
             //this.setState({imgLoaded: false}, () => console.log('state na false'));
@@ -87,6 +90,7 @@ class NasaSlider extends React.Component {
         // this.setState({imgLoaded : false}, ()=> {
         //
         // });
+        console.log(this.state.imgLoaded);
 
         fetch(url, {method : 'GET'})
             .then(result => {
@@ -101,7 +105,7 @@ class NasaSlider extends React.Component {
                     //get earlier Apod
                     this.getNextApod(-1);
                 } else {
-                    this.setState({apod : result}, ()=> {
+                    this.setState({apod : result, imgLoaded: false}, ()=> {
                         console.log(this.state.apod);
                         this.addressImg = this.state.apod.hdurl;
                         this.img.src = this.addressImg;
@@ -115,9 +119,13 @@ class NasaSlider extends React.Component {
             // } ))
             .catch(e=> console.log("exception: " + e))
 
+        console.log(this.state.imgLoaded);
+
     }
 
      getNextApod = (iterator) =>{
+         console.log("next " + this.state.imgLoaded);
+
         let newDate = new Date(this.state.date.getTime());
         newDate.setDate(newDate.getDate() + iterator);
         let dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
