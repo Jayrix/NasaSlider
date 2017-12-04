@@ -33,36 +33,36 @@ ul#SliderList {
 
         .slide-control {
           display: inline-block;
-          width:40px;
-          height:40px;
+          width:50px;
+          height:50px;
         }
 
         &.previous{
-          margin-left: 10%;
+          margin-left: 3%;
 
           .slide-control {
-            border-left: 7px solid rgb(37, 201, 176);
-            border-bottom: 7px solid rgb(37, 201, 176);
-            border-bottom-left-radius: 7px;
+            border-left: 7px solid white;
+            border-bottom: 7px solid white;
+            //border-bottom-left-radius: 7px;
             transform: rotate(45deg) skew(-12deg,-12deg);
 
             &:hover{
-              box-shadow: -8px 9px 10px 0px yellow;
+              box-shadow: -8px 9px 10px 0px white;
             }
           }
         }
 
         &.next{
-          margin-right: 10%;
+          margin-right: 3%;
 
           .slide-control {
-            border-right: 7px solid rgb(37, 201, 176);
-            border-bottom: 7px solid rgb(37, 201, 176);
-            border-bottom-right-radius: 7px;
+            border-right: 7px solid white;
+            border-bottom: 7px solid white;
+            //border-bottom-right-radius: 7px;
             transform: rotate(-45deg) skew(12deg,12deg);
 
             &:hover{
-              box-shadow: 8px 9px 10px yellow;
+              box-shadow: 8px 9px 10px white;
             }
           }
         }

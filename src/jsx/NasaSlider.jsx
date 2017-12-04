@@ -17,6 +17,8 @@ class NasaSlider extends React.Component {
             date : new Date(),
         }
 
+        this.today = new Date();
+
         console.log('konstruktor');
     }
 
@@ -130,17 +132,21 @@ class NasaSlider extends React.Component {
     }
 
      getNextApod = (iterator) =>{
-         console.log("next " + this.state.imgLoaded);
+        console.log("next " + this.state.imgLoaded);
 
         let newDate = new Date(this.state.date.getTime());
         newDate.setDate(newDate.getDate() + iterator);
-        let dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
-        console.log(dateString);
-        // console.log(newDate);
-        // console.log(this.state.date);
-        this.setState({
-            date: newDate,
-        }, this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+
+        if(newDate.getTime() <= this.today.getTime()){
+            let dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+            console.log(dateString);
+            console.log('data to ' + newDate.getTime(), this.today.getTime());
+            // console.log(this.state.date);
+            this.setState({
+                date: newDate,
+            }, this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+        }
+
     }
 
 }

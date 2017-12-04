@@ -10152,13 +10152,16 @@ var NasaSlider = function (_React$Component) {
 
             var newDate = new Date(_this.state.date.getTime());
             newDate.setDate(newDate.getDate() + iterator);
-            var dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
-            console.log(dateString);
-            // console.log(newDate);
-            // console.log(this.state.date);
-            _this.setState({
-                date: newDate
-            }, _this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+
+            if (newDate.getTime() <= _this.today.getTime()) {
+                var dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+                console.log(dateString);
+                console.log('data to ' + newDate.getTime(), _this.today.getTime());
+                // console.log(this.state.date);
+                _this.setState({
+                    date: newDate
+                }, _this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+            }
         };
 
         _this.img = new Image();
@@ -10169,6 +10172,8 @@ var NasaSlider = function (_React$Component) {
             imgLoaded: false,
             date: new Date()
         };
+
+        _this.today = new Date();
 
         console.log('konstruktor');
         return _this;
