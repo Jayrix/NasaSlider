@@ -1,7 +1,9 @@
 
 #preloader-container{
   position: relative;
-  top: 45vh;
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
 }
 
 
@@ -10,6 +12,7 @@
   width:58px;
   height:58px;
   margin:auto;
+  top: 45%;
 }
 
 .circular3dG{

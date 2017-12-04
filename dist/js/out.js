@@ -10090,6 +10090,10 @@ var _Navigation = __webpack_require__(186);
 
 var _Navigation2 = _interopRequireDefault(_Navigation);
 
+var _Preloader = __webpack_require__(194);
+
+var _Preloader2 = _interopRequireDefault(_Preloader);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10208,22 +10212,7 @@ var NasaSlider = function (_React$Component) {
                 // this.addressImg = this.state.apod.url;
                 // this.img.src = this.addressImg;
                 console.log('trzeci if');
-                return _react2.default.createElement(
-                    'div',
-                    { id: 'preloader-container' },
-                    _react2.default.createElement(
-                        'div',
-                        { id: 'circular3dG' },
-                        _react2.default.createElement('div', { id: 'circular3d_1G', className: 'circular3dG' }),
-                        _react2.default.createElement('div', { id: 'circular3d_2G', className: 'circular3dG' }),
-                        _react2.default.createElement('div', { id: 'circular3d_3G', className: 'circular3dG' }),
-                        _react2.default.createElement('div', { id: 'circular3d_4G', className: 'circular3dG' }),
-                        _react2.default.createElement('div', { id: 'circular3d_5G', className: 'circular3dG' }),
-                        _react2.default.createElement('div', { id: 'circular3d_6G', className: 'circular3dG' }),
-                        _react2.default.createElement('div', { id: 'circular3d_7G', className: 'circular3dG' }),
-                        _react2.default.createElement('div', { id: 'circular3d_8G', className: 'circular3dG' })
-                    )
-                );
+                return _react2.default.createElement(_Preloader2.default, null);
             } else {
                 console.log('czwarty if');
 
@@ -22938,6 +22927,68 @@ module.exports = Previous;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(24);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Preloader = function (_React$Component) {
+    _inherits(Preloader, _React$Component);
+
+    function Preloader(props) {
+        _classCallCheck(this, Preloader);
+
+        return _possibleConstructorReturn(this, (Preloader.__proto__ || Object.getPrototypeOf(Preloader)).call(this, props));
+    }
+
+    _createClass(Preloader, [{
+        key: 'render',
+        value: function render() {
+
+            return _react2.default.createElement(
+                'div',
+                { id: 'preloader-container' },
+                _react2.default.createElement(
+                    'div',
+                    { id: 'circular3dG' },
+                    _react2.default.createElement('div', { id: 'circular3d_1G', className: 'circular3dG' }),
+                    _react2.default.createElement('div', { id: 'circular3d_2G', className: 'circular3dG' }),
+                    _react2.default.createElement('div', { id: 'circular3d_3G', className: 'circular3dG' }),
+                    _react2.default.createElement('div', { id: 'circular3d_4G', className: 'circular3dG' }),
+                    _react2.default.createElement('div', { id: 'circular3d_5G', className: 'circular3dG' }),
+                    _react2.default.createElement('div', { id: 'circular3d_6G', className: 'circular3dG' }),
+                    _react2.default.createElement('div', { id: 'circular3d_7G', className: 'circular3dG' }),
+                    _react2.default.createElement('div', { id: 'circular3d_8G', className: 'circular3dG' })
+                )
+            );
+        }
+    }]);
+
+    return Preloader;
+}(_react2.default.Component);
+
+module.exports = Preloader;
 
 /***/ })
 /******/ ]);

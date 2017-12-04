@@ -1,12 +1,15 @@
 #preloader-container {
   position: relative;
-  top: 45vh; }
+  background-color: black;
+  height: 100vh;
+  width: 100vw; }
 
 #circular3dG {
   position: relative;
   width: 58px;
   height: 58px;
-  margin: auto; }
+  margin: auto;
+  top: 45%; }
 
 .circular3dG {
   position: absolute;
