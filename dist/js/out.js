@@ -10194,11 +10194,8 @@ var NasaSlider = function (_React$Component) {
             if (!this.state.apod) {
                 //bedzie preloading
                 console.log('pierwszy if');
-                return _react2.default.createElement(
-                    'h1',
-                    null,
-                    'Nie otrzymano obiektu z API'
-                );
+                //return <h1>Nie otrzymano obiektu z API</h1>
+                return _react2.default.createElement(_Preloader2.default, null);
             } else if (this.state.apod.media_type !== "image") {
                 console.log('drugi if');
                 //this.getNextApod(-1);
