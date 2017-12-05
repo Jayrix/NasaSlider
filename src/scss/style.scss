@@ -33,21 +33,24 @@ ul#SliderList {
 
         .slide-control {
           display: inline-block;
-          width:50px;
-          height:50px;
+          width:40px;
+          height:40px;
+          transition: .5s;
         }
 
         &.previous{
           margin-left: 3%;
 
           .slide-control {
-            border-left: 7px solid white;
-            border-bottom: 7px solid white;
+            border-left: 7px solid darkgray;
+            border-bottom: 7px solid darkgray;
             //border-bottom-left-radius: 7px;
-            transform: rotate(45deg) skew(-12deg,-12deg);
+            transform: rotate(45deg) skew(5deg,5deg);
 
             &:hover{
-              box-shadow: -8px 9px 10px 0px white;
+              border-color: white;
+              transform: rotate(45deg) skew(-12deg,-12deg);
+
             }
           }
         }
@@ -56,13 +59,14 @@ ul#SliderList {
           margin-right: 3%;
 
           .slide-control {
-            border-right: 7px solid white;
-            border-bottom: 7px solid white;
+            border-right: 7px solid darkgray;
+            border-bottom: 7px solid darkgray;
             //border-bottom-right-radius: 7px;
-            transform: rotate(-45deg) skew(12deg,12deg);
+            transform: rotate(-45deg) skew(-5deg,-5deg);
 
             &:hover{
-              box-shadow: 8px 9px 10px white;
+              border-color: white;
+              transform: rotate(-45deg) skew(12deg,12deg);
             }
           }
         }

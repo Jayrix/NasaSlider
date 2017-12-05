@@ -15,9 +15,11 @@ class NasaSlider extends React.Component {
             apod : null,
             imgLoaded: false,
             date : new Date(),
+            fetchInProgress: false,
         }
 
         this.today = new Date();
+        this.prevDateTime = this.today.getTime();
 
         console.log('konstruktor');
     }
@@ -33,8 +35,7 @@ class NasaSlider extends React.Component {
 
     render() {
 
-        if (!this.state.apod) {
-            //bedzie preloading
+        if (!this.state.apod || this.state.fetchInProgress === true || !this.state.imgLoaded) {
             console.log('pierwszy if');
             //return <h1>Nie otrzymano obiektu z API</h1>
             return (
@@ -42,22 +43,11 @@ class NasaSlider extends React.Component {
             )
         }else if(this.state.apod.media_type !== "image") {
             console.log('drugi if');
-            //this.getNextApod(-1);
             return <h1>not an image</h1>
-        }else if(!this.state.imgLoaded) {
-            //bedzie preloading
-            // this.addressImg = this.state.apod.url;
-            // this.img.src = this.addressImg;
-            console.log('trzeci if');
-            return (
-                <Preloader/>
-            )
         } else {
-            console.log('czwarty if');
-
+            console.log('trzeci if - slide');
             let styles = {backgroundImage : "url(" + this.img.src + ")",
             };
-            //this.setState({imgLoaded: false}, () => console.log('state na false'));
             return (
                 <ul id="SliderList">
                     <li className="image-container" style={styles}></li>
@@ -68,22 +58,13 @@ class NasaSlider extends React.Component {
                         <ul></ul>
                     </li>
                 </ul>
-                // <article>
-                //     {/*<div className="image-container"><img src={adressImg} alt=""/></div>*/}
-                //     <div className="imageDiv" style={styles}>
-                //         <Navigation />
-                //     </div>
-                // </article>
+
             )
         }
     }
 
     componentDidMount(){
         console.log('did mount');
-        // if(this.state.apod.media_type !== "image"){
-        //     this.getNextApod(-1);
-        // }
-        //console.log(this.state.apod.media_type);
     }
 
      // shouldComponentUpdate(nextProps, nextState){
@@ -95,9 +76,7 @@ class NasaSlider extends React.Component {
 
     getApod = (url) =>{
 
-        // this.setState({imgLoaded : false}, ()=> {
-        //
-        // });
+        this.setState({fetchInProgress: true});
         console.log(this.state.imgLoaded);
 
         fetch(url, {method : 'GET'})
@@ -110,21 +89,22 @@ class NasaSlider extends React.Component {
             })
             .then(result => {
                 if (result.media_type !== "image"){
-                    //get earlier Apod
-                    this.getNextApod(-1);
+                    if(this.prevDateTime < this.state.date.getTime() ){
+                        console.log('not an image, proceeding to prev apod');
+                        this.getNextApod(1);
+                    } else {
+                        console.log('not an image, proceeding to next apod');
+                        this.getNextApod(-1);
+                    }
                 } else {
-                    this.setState({apod : result, imgLoaded: false}, ()=> {
+                    this.setState({apod : result, imgLoaded: false, fetchInProgress: false}, ()=> {
                         console.log(this.state.apod);
-                        this.addressImg = this.state.apod.hdurl;
+                        this.addressImg = this.state.apod.url;
                         this.img.src = this.addressImg;
                     } )
                 }
             })
-            // .then(result => this.setState({apod : result}, ()=> {
-            //     console.log(this.state.apod);
-            //     this.addressImg = this.state.apod.hdurl;
-            //     this.img.src = this.addressImg;
-            // } ))
+
             .catch(e=> console.log("exception: " + e))
 
         console.log(this.state.imgLoaded);
@@ -137,11 +117,13 @@ class NasaSlider extends React.Component {
         let newDate = new Date(this.state.date.getTime());
         newDate.setDate(newDate.getDate() + iterator);
 
+
         if(newDate.getTime() <= this.today.getTime()){
             let dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
             console.log(dateString);
-            console.log('data to ' + newDate.getTime(), this.today.getTime());
+            console.log('data to ' + newDate, this.today);
             // console.log(this.state.date);
+            this.prevDateTime = this.state.date.getTime();
             this.setState({
                 date: newDate,
             }, this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));

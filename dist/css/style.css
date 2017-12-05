@@ -167,23 +167,26 @@ ul#SliderList {
         display: inline-block; }
         ul#SliderList li.navigation-container nav .control-container .slide-control {
           display: inline-block;
-          width: 50px;
-          height: 50px; }
+          width: 40px;
+          height: 40px;
+          transition: .5s; }
         ul#SliderList li.navigation-container nav .control-container.previous {
           margin-left: 3%; }
           ul#SliderList li.navigation-container nav .control-container.previous .slide-control {
-            border-left: 7px solid white;
-            border-bottom: 7px solid white;
-            transform: rotate(45deg) skew(-12deg, -12deg); }
+            border-left: 7px solid darkgray;
+            border-bottom: 7px solid darkgray;
+            transform: rotate(45deg) skew(5deg, 5deg); }
             ul#SliderList li.navigation-container nav .control-container.previous .slide-control:hover {
-              box-shadow: -8px 9px 10px 0px white; }
+              border-color: white;
+              transform: rotate(45deg) skew(-12deg, -12deg); }
         ul#SliderList li.navigation-container nav .control-container.next {
           margin-right: 3%; }
           ul#SliderList li.navigation-container nav .control-container.next .slide-control {
-            border-right: 7px solid white;
-            border-bottom: 7px solid white;
-            transform: rotate(-45deg) skew(12deg, 12deg); }
+            border-right: 7px solid darkgray;
+            border-bottom: 7px solid darkgray;
+            transform: rotate(-45deg) skew(-5deg, -5deg); }
             ul#SliderList li.navigation-container nav .control-container.next .slide-control:hover {
-              box-shadow: 8px 9px 10px white; }
+              border-color: white;
+              transform: rotate(-45deg) skew(12deg, 12deg); }
   ul#SliderList li.dots-container {
     display: none; }

@@ -10112,9 +10112,7 @@ var NasaSlider = function (_React$Component) {
 
         _this.getApod = function (url) {
 
-            // this.setState({imgLoaded : false}, ()=> {
-            //
-            // });
+            _this.setState({ fetchInProgress: true });
             console.log(_this.state.imgLoaded);
 
             fetch(url, { method: 'GET' }).then(function (result) {
@@ -10125,22 +10123,21 @@ var NasaSlider = function (_React$Component) {
                 }
             }).then(function (result) {
                 if (result.media_type !== "image") {
-                    //get earlier Apod
-                    _this.getNextApod(-1);
+                    if (_this.prevDateTime < _this.state.date.getTime()) {
+                        console.log('not an image, proceeding to prev apod');
+                        _this.getNextApod(1);
+                    } else {
+                        console.log('not an image, proceeding to next apod');
+                        _this.getNextApod(-1);
+                    }
                 } else {
-                    _this.setState({ apod: result, imgLoaded: false }, function () {
+                    _this.setState({ apod: result, imgLoaded: false, fetchInProgress: false }, function () {
                         console.log(_this.state.apod);
-                        _this.addressImg = _this.state.apod.hdurl;
+                        _this.addressImg = _this.state.apod.url;
                         _this.img.src = _this.addressImg;
                     });
                 }
-            })
-            // .then(result => this.setState({apod : result}, ()=> {
-            //     console.log(this.state.apod);
-            //     this.addressImg = this.state.apod.hdurl;
-            //     this.img.src = this.addressImg;
-            // } ))
-            .catch(function (e) {
+            }).catch(function (e) {
                 return console.log("exception: " + e);
             });
 
@@ -10156,8 +10153,9 @@ var NasaSlider = function (_React$Component) {
             if (newDate.getTime() <= _this.today.getTime()) {
                 var dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
                 console.log(dateString);
-                console.log('data to ' + newDate.getTime(), _this.today.getTime());
+                console.log('data to ' + newDate, _this.today);
                 // console.log(this.state.date);
+                _this.prevDateTime = _this.state.date.getTime();
                 _this.setState({
                     date: newDate
                 }, _this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
@@ -10170,10 +10168,12 @@ var NasaSlider = function (_React$Component) {
         _this.state = {
             apod: null,
             imgLoaded: false,
-            date: new Date()
+            date: new Date(),
+            fetchInProgress: false
         };
 
         _this.today = new Date();
+        _this.prevDateTime = _this.today.getTime();
 
         console.log('konstruktor');
         return _this;
@@ -10196,31 +10196,21 @@ var NasaSlider = function (_React$Component) {
         key: 'render',
         value: function render() {
 
-            if (!this.state.apod) {
-                //bedzie preloading
+            if (!this.state.apod || this.state.fetchInProgress === true || !this.state.imgLoaded) {
                 console.log('pierwszy if');
                 //return <h1>Nie otrzymano obiektu z API</h1>
                 return _react2.default.createElement(_Preloader2.default, null);
             } else if (this.state.apod.media_type !== "image") {
                 console.log('drugi if');
-                //this.getNextApod(-1);
                 return _react2.default.createElement(
                     'h1',
                     null,
                     'not an image'
                 );
-            } else if (!this.state.imgLoaded) {
-                //bedzie preloading
-                // this.addressImg = this.state.apod.url;
-                // this.img.src = this.addressImg;
-                console.log('trzeci if');
-                return _react2.default.createElement(_Preloader2.default, null);
             } else {
-                console.log('czwarty if');
-
+                console.log('trzeci if - slide');
                 var styles = { backgroundImage: "url(" + this.img.src + ")"
                 };
-                //this.setState({imgLoaded: false}, () => console.log('state na false'));
                 return _react2.default.createElement(
                     'ul',
                     { id: 'SliderList' },
@@ -10235,24 +10225,13 @@ var NasaSlider = function (_React$Component) {
                         { className: 'dots-container' },
                         _react2.default.createElement('ul', null)
                     )
-                )
-                // <article>
-                //     {/*<div className="image-container"><img src={adressImg} alt=""/></div>*/}
-                //     <div className="imageDiv" style={styles}>
-                //         <Navigation />
-                //     </div>
-                // </article>
-                ;
+                );
             }
         }
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             console.log('did mount');
-            // if(this.state.apod.media_type !== "image"){
-            //     this.getNextApod(-1);
-            // }
-            //console.log(this.state.apod.media_type);
         }
 
         // shouldComponentUpdate(nextProps, nextState){
@@ -22769,10 +22748,6 @@ var Navigation = function (_React$Component) {
         _classCallCheck(this, Navigation);
 
         return _possibleConstructorReturn(this, (Navigation.__proto__ || Object.getPrototypeOf(Navigation)).call(this, props));
-
-        // this.state = {
-        //     date : new Date(),
-        // }
     }
 
     _createClass(Navigation, [{
@@ -22786,31 +22761,6 @@ var Navigation = function (_React$Component) {
                 _react2.default.createElement(_Next2.default, { getNextApodFn: this.props.getApodFn })
             );
         }
-
-        // static getNextApod = (iterator) =>{
-        //     let newDate = new Date(this.state.date.getTime());
-        //     newDate.setDate(newDate.getDate() + iterator);
-        //     let dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
-        //     console.log(dateString);
-        //     // console.log(newDate);
-        //     // console.log(this.state.date);
-        //     this.setState({
-        //         date: newDate,
-        //     }, this.props.getApodFn('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
-        // }
-
-        // getPreviousApod = () =>{
-        //     let newDate = new Date(this.state.date.getTime());
-        //     newDate.setDate(newDate.getDate()+1);
-        //     let dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
-        //     // console.log(newDate);
-        //     // console.log(this.state.date);
-        //     this.setState({
-        //         date: newDate,
-        //     }, this.props.getApodFn('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
-        // }
-
-
     }]);
 
     return Navigation;
