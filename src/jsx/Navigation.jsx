@@ -16,8 +16,8 @@ class Navigation extends React.Component {
 
         return (
            <nav>
-               <Previous getNextApodFn={this.props.getApodFn} />
-               <Next  getNextApodFn={this.props.getApodFn} />
+               <Previous getNextApodFn={this.props.getApodFn} apod={this.props.apod}/>
+               <Next  getNextApodFn={this.props.getApodFn} apod={this.props.apod}/>
            </nav>
         )
 

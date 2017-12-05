@@ -10113,7 +10113,6 @@ var NasaSlider = function (_React$Component) {
         _this.getApod = function (url) {
 
             _this.setState({ fetchInProgress: true });
-            console.log(_this.state.imgLoaded);
 
             fetch(url, { method: 'GET' }).then(function (result) {
                 if (result.ok) {
@@ -10125,12 +10124,16 @@ var NasaSlider = function (_React$Component) {
                 if (result.media_type !== "image") {
                     if (_this.prevDateTime < _this.state.date.getTime()) {
                         console.log('not an image, proceeding to prev apod');
-                        _this.getNextApod(1);
+                        _this.getNextApod(1, result);
                     } else {
                         console.log('not an image, proceeding to next apod');
-                        _this.getNextApod(-1);
+                        _this.getNextApod(-1, result);
                     }
                 } else {
+                    if (!_this.imagesDatesArr.includes(result.date)) {
+                        _this.imagesDatesArr.push(result.date);
+                    }
+                    console.log(_this.imagesDatesArr);
                     _this.setState({ apod: result, imgLoaded: false, fetchInProgress: false }, function () {
                         console.log(_this.state.apod);
                         _this.addressImg = _this.state.apod.url;
@@ -10140,25 +10143,53 @@ var NasaSlider = function (_React$Component) {
             }).catch(function (e) {
                 return console.log("exception: " + e);
             });
-
-            console.log(_this.state.imgLoaded);
         };
 
-        _this.getNextApod = function (iterator) {
-            console.log("next " + _this.state.imgLoaded);
+        _this.getNextApod = function (iterator, result) {
+            var currentIndex = _this.imagesDatesArr.indexOf(result.date);
+            var dateString = void 0;
 
-            var newDate = new Date(_this.state.date.getTime());
-            newDate.setDate(newDate.getDate() + iterator);
+            if (iterator === 1) {
+                if (currentIndex > 0) {
+                    dateString = _this.imagesDatesArr[currentIndex - 1];
+                    var newDate = new Date(dateString);
+                    _this.prevDateTime = _this.state.date.getTime();
+                    _this.setState({
+                        date: newDate
+                    }, _this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+                    //console.log('DATA TO ' + test);
+                }
+            } else if (iterator === -1) {
 
-            if (newDate.getTime() <= _this.today.getTime()) {
-                var dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
-                console.log(dateString);
-                console.log('data to ' + newDate, _this.today);
-                // console.log(this.state.date);
-                _this.prevDateTime = _this.state.date.getTime();
-                _this.setState({
-                    date: newDate
-                }, _this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+                if (currentIndex < _this.imagesDatesArr.length - 1 && currentIndex > -1) {
+                    dateString = _this.imagesDatesArr[currentIndex + 1];
+                    var _newDate = new Date(dateString);
+                    _this.prevDateTime = _this.state.date.getTime();
+                    _this.setState({
+                        date: _newDate
+                    }, _this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+                } else {
+                    var _newDate2 = new Date(_this.state.date.getTime());
+                    _newDate2.setDate(_newDate2.getDate() + iterator);
+                    dateString = _newDate2.getFullYear() + '-' + (_newDate2.getMonth() + 1) + '-' + _newDate2.getDate();
+                    _this.prevDateTime = _this.state.date.getTime();
+                    _this.setState({
+                        date: _newDate2
+                    }, _this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+                }
+
+                // let newDate = new Date(this.state.date.getTime());
+                // newDate.setDate(newDate.getDate() + iterator);
+                // if(newDate.getTime() < this.today.getTime()){
+                //     let dateString = newDate.getFullYear() + '-' + (newDate.getMonth() + 1) + '-' + newDate.getDate();
+                //     console.log(dateString);
+                //     console.log('data to ' + newDate, this.today);
+                //     // console.log(this.state.date);
+                //     this.prevDateTime = this.state.date.getTime();
+                //     this.setState({
+                //         date: newDate,
+                //     }, this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A&date=' + dateString));
+                // }
             }
         };
 
@@ -10174,8 +10205,8 @@ var NasaSlider = function (_React$Component) {
 
         _this.today = new Date();
         _this.prevDateTime = _this.today.getTime();
+        _this.imagesDatesArr = [];
 
-        console.log('konstruktor');
         return _this;
     }
 
@@ -10184,11 +10215,10 @@ var NasaSlider = function (_React$Component) {
         value: function componentWillMount() {
             var _this2 = this;
 
-            console.log('willmount');
             this.getApod('https://api.nasa.gov/planetary/apod?api_key=l1mzjg89PDylwrIsHFXtcCHM0EoBcnjdKWNQ151A');
             this.img.onload = function () {
                 _this2.setState({ imgLoaded: true }, function () {
-                    return console.log('zaladowalo');
+                    return console.log('image loaded');
                 });
             };
         }
@@ -10197,18 +10227,15 @@ var NasaSlider = function (_React$Component) {
         value: function render() {
 
             if (!this.state.apod || this.state.fetchInProgress === true || !this.state.imgLoaded) {
-                console.log('pierwszy if');
                 //return <h1>Nie otrzymano obiektu z API</h1>
                 return _react2.default.createElement(_Preloader2.default, null);
             } else if (this.state.apod.media_type !== "image") {
-                console.log('drugi if');
                 return _react2.default.createElement(
                     'h1',
                     null,
                     'not an image'
                 );
             } else {
-                console.log('trzeci if - slide');
                 var styles = { backgroundImage: "url(" + this.img.src + ")"
                 };
                 return _react2.default.createElement(
@@ -10218,7 +10245,7 @@ var NasaSlider = function (_React$Component) {
                     _react2.default.createElement(
                         'li',
                         { className: 'navigation-container' },
-                        _react2.default.createElement(_Navigation2.default, { getApodFn: this.getNextApod })
+                        _react2.default.createElement(_Navigation2.default, { getApodFn: this.getNextApod, apod: this.state.apod })
                     ),
                     _react2.default.createElement(
                         'li',
@@ -10228,18 +10255,6 @@ var NasaSlider = function (_React$Component) {
                 );
             }
         }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            console.log('did mount');
-        }
-
-        // shouldComponentUpdate(nextProps, nextState){
-        //    console.log(this.state.imgLoaded === false);
-        //     return (this.state.imgLoaded === false)
-        // }
-
-
     }]);
 
     return NasaSlider;
@@ -22757,8 +22772,8 @@ var Navigation = function (_React$Component) {
             return _react2.default.createElement(
                 'nav',
                 null,
-                _react2.default.createElement(_Previous2.default, { getNextApodFn: this.props.getApodFn }),
-                _react2.default.createElement(_Next2.default, { getNextApodFn: this.props.getApodFn })
+                _react2.default.createElement(_Previous2.default, { getNextApodFn: this.props.getApodFn, apod: this.props.apod }),
+                _react2.default.createElement(_Next2.default, { getNextApodFn: this.props.getApodFn, apod: this.props.apod })
             );
         }
     }]);
@@ -22798,7 +22813,7 @@ var Next = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Next.__proto__ || Object.getPrototypeOf(Next)).call(this, props));
 
         _this.loadNextApod = function (e) {
-            _this.props.getNextApodFn(-1);
+            _this.props.getNextApodFn(-1, _this.props.apod);
         };
 
         return _this;
@@ -22851,7 +22866,7 @@ var Previous = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Previous.__proto__ || Object.getPrototypeOf(Previous)).call(this, props));
 
         _this.loadPreviousApod = function (e) {
-            _this.props.getNextApodFn(1);
+            _this.props.getNextApodFn(1, _this.props.apod);
         };
 
         return _this;

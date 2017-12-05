@@ -19,7 +19,7 @@ class Next extends React.Component {
     }
 
     loadNextApod = e => {
-        this.props.getNextApodFn(-1);
+        this.props.getNextApodFn(-1,this.props.apod);
     }
 }
 

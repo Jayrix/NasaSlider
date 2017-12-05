@@ -21,7 +21,7 @@ class Previous extends React.Component {
     }
 
     loadPreviousApod = e =>{
-        this.props.getNextApodFn(1);
+        this.props.getNextApodFn(1,this.props.apod);
     }
 
 }
