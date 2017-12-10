@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import Navigation from './Navigation.jsx';
 import Preloader from './Preloader.jsx';
 
+//brak synchronizacji miedzy this.state.date, a data zdjecia w api wynikajacy z roznicy czasowej
+
 class NasaSlider extends React.Component {
 
     constructor(props) {
