@@ -7,7 +7,6 @@ I am not storing references to downloaded image files on purpose - for learning 
 and overall asynchronicity without breaking the app).
 
 Still got to improve HTML structure (semantics need work as I wasn't sure what kind of app I was gonna make at start),
-fix 1st img loading two times and make some nicer css for better overall UX
-(starting with another preloader as this one takes too long to start animating).
+and make some nicer css for better overall UX (starting with another preloader as this one takes too long to start animating).
 
 You can see dist version here : https://jayrix.github.io/NasaSlider/

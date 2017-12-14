@@ -31,7 +31,6 @@ class NasaSlider extends React.Component {
         this.img.onload = () => {
             this.setState({imgLoaded: true}, () => console.log('image loaded'));
         };
-
     }
 
     render() {
@@ -74,27 +73,33 @@ class NasaSlider extends React.Component {
                 }
             })
             .then(result => {
-                if (result.media_type !== "image"){
-                    if(this.prevDateTime < this.state.date.getTime() ){
-                        console.log('not an image, proceeding to prev apod');
-                        this.getNextApod(1,result);
+                this.setState({date: new Date(result.date)}, () => {
+                    if (result.media_type !== "image"){
+                        if(this.prevDateTime < this.state.date.getTime() ){
+                            console.log('not an image, proceeding to prev apod');
+                            this.getNextApod(1,result);
+                        } else {
+                            console.log('not an image, proceeding to next apod');
+                            this.getNextApod(-1, result);
+                        }
                     } else {
-                        console.log('not an image, proceeding to next apod');
-                        this.getNextApod(-1, result);
+                        if(!this.imagesDatesArr.includes(result.date)){
+                            this.imagesDatesArr.push(result.date);
+                        }
+                        console.log(this.imagesDatesArr);
+                        this.setState({
+                                apod : result,
+                                imgLoaded: false,
+                                fetchInProgress: false
+                            },
+                            () => {
+                                console.log(this.state.apod);
+                                this.addressImg = this.state.apod.url;
+                                this.img.src = this.addressImg;
+                            } )
                     }
-                } else {
-                    if(!this.imagesDatesArr.includes(result.date)){
-                        this.imagesDatesArr.push(result.date);
-                    }
-                    console.log(this.imagesDatesArr);
-                    this.setState({apod : result, imgLoaded: false, fetchInProgress: false}, ()=> {
-                        console.log(this.state.apod);
-                        this.addressImg = this.state.apod.url;
-                        this.img.src = this.addressImg;
-                    } )
-                }
+                })
             })
-
             .catch(e=> console.log("exception: " + e))
 
     }
